@@ -11,7 +11,7 @@ def Task2():
     # plt.show()
 
     # option 2:
-    df1 = pd.read_csv('mobile_price_1.csv')
+    df1 = pd.read_csv('Data/mobile_price_1.csv')
     X = df1.iloc[:, 0:20]
     y = df1.iloc[:, -1]
     # corrmat = df1.corr()
