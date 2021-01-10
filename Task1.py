@@ -2,8 +2,8 @@ from Main import *
 
 def Task1():
     #1.2
-    print(f"Numinal categorical features => {df.columns[10]} | {df.columns[14]} | {df.columns[18]} | {df.columns[19]}")
-    print(f"Ordinal categorical features => {df.columns[11]} | {df.columns[12]} | {df.columns[13]}")
+    print(f"Numinal categorical features : {df.columns[10]} , {df.columns[14]} , {df.columns[18]} , {df.columns[19]}")
+    print(f"Ordinal categorical features : {df.columns[11]} , {df.columns[12]} , {df.columns[13]}")
     #1.3
     df['resolution'] = df.px_height * df.px_width
     #1.4
