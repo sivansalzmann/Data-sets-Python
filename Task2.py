@@ -1,10 +1,13 @@
 from Main import *
 
 def Task2():
+    # 1.1
     df1 = pd.read_csv('mobile_price_1.csv')
     corr = df1.corr()
     sns.heatmap(corr, cmap='YlGnBu', vmin=-1, vmax=1)
     plt.show()
+
+    # 1.2
 # ______________________________
 # data = np.genfromtxt("mobile_price_1.csv", delimiter=",",skip_header=True, usecols=range(1, 11))
 # plt.imshow(data, cmap='hot', interpolation='nearest')
