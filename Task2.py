@@ -1,47 +1,38 @@
 from Main import *
-from sklearn.feature_selection import SelectKBest
-from sklearn.feature_selection import chi2
-from sklearn.ensemble import ExtraTreesClassifier
+
 def Task2():
-    # 1.1
-    # option 1:
-    #  df1 = pd.read_csv('mobile_price_1.csv')
-    # corr = df1.corr()
-    # sns.heatmap(corr, cmap='YlGnBu', vmin=-1, vmax=1)
-    # plt.show()
+    #2.1
+    corr = df.corr()
+    plt.figure(figsize = (8,6))
+    sns.heatmap(corr,cmap='YlGnBu')
+    plt.show() #add categorial features? remove id
 
-    # option 2:
-    df1 = pd.read_csv('Data/mobile_price_1.csv')
-    X = df1.iloc[:, 0:20]
-    y = df1.iloc[:, -1]
-    # corrmat = df1.corr()
-    # top_corr_features = corrmat.index
-    # plt.figure(figsize=(20, 20))
-    # map = sns.heatmap(df1[top_corr_features].corr(), annot=True, cmap="YlGnBu")
-    # plt.show()
-    # 1.2
+    #2.2
+    print(f"Features correlated with the device price shown in the matrix : {df.columns[1]} , {df.columns[4]} , {df.columns[5]} , {df.columns[6]} , {df.columns[11]} ")
 
+    #2.3
+    print(f"Features correlated with the device price not shown in the matrix : ") #fix here
 
+    #2.4
+    sns.jointplot(x='ram', y='price', data=df)
+    #plt.show()
+    sns.jointplot(x='gen', y='price', data=df)
+    #plt.show()
+    sns.jointplot(x='battery_power', y='price', data=df)
+    #plt.show()
+    sns.jointplot(x='px_height', y='price', data=df)
+    #plt.show()
+    sns.jointplot(x='px_width', y='price', data=df)
+    #plt.show()
 
-
-    model = ExtraTreesClassifier()
-    model.fit(X, y)
-    print(model.feature_importances_)
-    feat_importances = pd.Series(model.feature_importances_, index=X.columns)
-    feat_importances.nlargest(10).plot(kind='barh')
-    plt.show()
-
-
-    # bestfeatures = SelectKBest(score_func=chi2, k=10)
-    # fit = bestfeatures.fit(X, y)
-    # dfscores = pd.DataFrame(fit.scores_)
-    # dfcolumns = pd.DataFrame(X.columns)
-    # featureScores = pd.concat([dfcolumns, dfscores], axis=1)
-    # featureScores.columns = ['Specs', 'Score']
-    # print(featureScores.nlargest(10, 'Score'))
-
-
-
+    #2.5
+    index_list = ['ram', 'battery_power']
+    df_tmp = df.copy()
+    for index in index_list:
+        df_tmp[index] = pd.qcut(df_tmp[index], 5)
+    pivot_table = np.round(pd.pivot_table(df_tmp, values='price', index=index_list,columns='gen', aggfunc=np.mean), 1)
+    #print(pivot_table)
+    pivot_table.to_csv('Task_2.5_pivot_table.csv')
 
 if __name__ == '__main__':
     Task2()

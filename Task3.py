@@ -35,12 +35,14 @@ def conv_range(x):
 
 def Task3():
     df_out = df.copy()
+
     #3.1
     df_out['speed_ord'] = df['speed'].apply(conv_speed)
     df_out['cores_ord'] = df['cores'].apply(conv_cores)
     df_out['fourth_gen_ord'] = np.where(df['gen'] == 4 ,1,0)
     df_out['third_gen_ord'] = np.where(df['gen'] == 3 ,1,0)
     df_out['sec_gen_ord'] = np.where(df['gen'] == 2 ,1,0)
+
     #3.2
     df_out['bluetooth_bin']=np.where(df['bluetooth'] =='Yes',1,0)
     df_out['wifi_bin'] = np.where(df['wifi'] == 'none' ,0,1)
