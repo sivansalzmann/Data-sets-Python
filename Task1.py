@@ -18,14 +18,15 @@ def Task1():
     df['memory'] /= 1024
 
     #1.7
-    df.describe().to_csv("Task_1.7_describe.csv")
+    #df.describe().to_csv("Task_1.7_describe.csv")
     #print(f"describe():\n{df.describe()}")
 
     #1.8
     df.hist(column='price')
     plt.xlabel("Count")
     plt.ylabel("Price")
-    plt.show()
+    #plt.show()
+    df.to_csv('Task_1.3_1.4_1.5_1.6.csv')
 
 if __name__ == '__main__':
     Task1()
