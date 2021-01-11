@@ -26,7 +26,8 @@ def Task1():
     plt.xlabel("Count")
     plt.ylabel("Price")
     #plt.show()
-    df.to_csv('Task_1.3_1.4_1.5_1.6.csv')
 
 if __name__ == '__main__':
     Task1()
+    # df.to_csv('Task_1.3_1.4_1.5_1.6.csv')
+

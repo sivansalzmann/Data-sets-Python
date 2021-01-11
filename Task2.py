@@ -32,7 +32,7 @@ def Task2():
         df_tmp[index] = pd.qcut(df_tmp[index], 5)
     pivot_table = np.round(pd.pivot_table(df_tmp, values='price', index=index_list,columns='gen', aggfunc=np.mean), 1)
     #print(pivot_table)
-    pivot_table.to_csv('Task_2.5_pivot_table.csv')
+    # pivot_table.to_csv('Task_2.5_pivot_table.csv')
 
 if __name__ == '__main__':
     Task2()

@@ -56,7 +56,7 @@ def Task3():
     #plt.show()
 
     #3.4
-    df_out.to_csv('mobile_prices_converted.csv')
+    # df_out.to_csv('mobile_prices_converted.csv')
 
 if __name__ == '__main__':
     Task3()
