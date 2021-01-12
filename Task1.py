@@ -17,6 +17,7 @@ class Task1(MobilePriceGeneral):
 
     def describe(self):
         # self.df.describe().to_csv("Task_1.7_describe.csv")
+        pd.set_option('max_columns',None)
         print(f"describe():\n{self.df.describe()}")
 
     def histMap(self):
