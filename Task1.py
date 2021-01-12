@@ -16,12 +16,10 @@ class Task1(MobilePriceGeneral):
         self.df['memory'] /= 1024
 
     def describe(self):
-        #1.7
         # self.df.describe().to_csv("Task_1.7_describe.csv")
         print(f"describe():\n{self.df.describe()}")
 
     def histMap(self):
-        #1.8
         self.df.hist(column='price')
         plt.xlabel("Count")
         plt.ylabel("Price")

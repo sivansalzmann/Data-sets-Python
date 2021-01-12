@@ -3,11 +3,10 @@ from MobilePriceGeneral import *
 
 class Task4(MobilePriceGeneral):
     def by4grid(self):
-        # 4.1
         g = sns.PairGrid(self.df, vars=['px_height', 'px_width', 'ram', 'price'], hue='gen', palette='RdBu_r')
         g.map(plt.scatter, alpha=0.8)
         g.add_legend()
-        plt.show()
+        #plt.show()
 
     def fourD(self):
         coreNumb = [0, 'single', 'dual', 'triple', 'quad', 'penta', 'hexa', 'hepta', 'octa']
@@ -17,16 +16,21 @@ class Task4(MobilePriceGeneral):
         for ar in [1, 4, 8]:
             plt.scatter([], [], c='k', alpha=0.3, s=ar, label=coreNumb[ar])
         plt.legend(scatterpoints=1, frameon=False, labelspacing=1, title='core sizes:')
-        plt.show()
+        #plt.show()
 
     def pricesComp(self):
         tempData = pd.DataFrame(self.df[['ram', 'gen', 'battery_power', 'price']])
         tempData['price_2'] = self.df2['price_2']
         # print(tempData.head())
         sns.heatmap(tempData.corr(), annot=True, cmap="YlGnBu")
-        plt.show()
+        #plt.show()
 
 
 if __name__ == '__main__':
     task4 = Task4()
-    
+    #4.1
+    task4.by4grid()
+    #4.2
+    task4.fourD()
+    #4.3
+    task4.pricesComp()
