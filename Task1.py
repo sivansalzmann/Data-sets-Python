@@ -1,33 +1,40 @@
-from Main import *
+from MobilePriceGeneral import *
 
-def Task1():
-    #1.2
-    print(f"Numinal categorical features : {df.columns[10]} , {df.columns[14]} , {df.columns[18]} , {df.columns[19]}")
-    print(f"Ordinal categorical features : {df.columns[11]} , {df.columns[12]} , {df.columns[13]}")
+class Task1(MobilePriceGeneral):
 
-    #1.3
-    df['resolution'] = df.px_height * df.px_width
+    def addCoulnms(self):
+        #1.3
+        self.df['resolution'] = self.df.px_height * self.df.px_width
 
-    #1.4
-    df['DPI_W'] = df['px_width']/df['sc_w']*2.5
+        #1.4
+        self.df['DPI_W'] = (self.df['px_width']/self.df['sc_w']) / 2.54
 
-    #1.5
-    df['call_ratio'] = df['battery_power'] / df['talk_time']
+        #1.5
+        self.df['call_ratio'] = self.df['battery_power'] / self.df['talk_time']
 
-    #1.6
-    df['memory'] /= 1024
+        #1.6
+        self.df['memory'] /= 1024
 
-    #1.7
-    #df.describe().to_csv("Task_1.7_describe.csv")
-    #print(f"describe():\n{df.describe()}")
+    def describe(self):
+        #1.7
+        # self.df.describe().to_csv("Task_1.7_describe.csv")
+        print(f"describe():\n{self.df.describe()}")
 
-    #1.8
-    df.hist(column='price')
-    plt.xlabel("Count")
-    plt.ylabel("Price")
-    #plt.show()
+    def histMap(self):
+        #1.8
+        self.df.hist(column='price')
+        plt.xlabel("Count")
+        plt.ylabel("Price")
+        #plt.show()
 
 if __name__ == '__main__':
-    Task1()
-    # df.to_csv('Task_1.3_1.4_1.5_1.6.csv')
+    task1 = Task1()
+    #1.3 - 1.6
+    task1.addCoulnms()
+    #1.7
+    task1.describe()
+    #1.8
+    task1.histMap()
+
+    # task1.df.to_csv("Task_1.3_1.4_1.5_1.6.csv")
 
