@@ -6,6 +6,7 @@ import seaborn as sns
 class MobilePriceGeneral:
     def __init__(self):
         self.df = pd.read_csv('Data/mobile_price_1.csv',index_col="id")
+        self.df2 = pd.read_csv('Data/mobile_price_2.csv', index_col="id")
         self._pre_process()
 
     def _pre_process(self):
