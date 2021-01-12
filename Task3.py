@@ -3,22 +3,25 @@ from MobilePriceGeneral import *
 class Task3(MobilePriceGeneral):
     def calculate_ordinal_features(self):
         core_list = ['single', 'dual', 'triple', 'quad', 'penta', 'hexa', 'hepta', 'octa']
-        self.df['cores_ord'] = pd.Categorical(self.df.cores, ordered=True, categories=core_list).codes+1
+        self.df['cores_ord'] = pd.Categorical(self.df.cores, ordered=True, categories=core_list).codes + 1
         speed_list = ['low', 'medium', 'high']
-        self.df['speed_ord'] = pd.Categorical(self.df.speed, ordered=True, categories=speed_list).codes+1
+        self.df['speed_ord'] = pd.Categorical(self.df.speed, ordered=True, categories=speed_list).codes + 1
         wifi_list = ['none', 'n', 'g', 'b', 'a']
-        self.df['wifi_ord'] = pd.Categorical(self.df.wifi, ordered=True, categories=wifi_list).codes+1
+        self.df['wifi_ord'] = pd.Categorical(self.df.wifi, ordered=True, categories=wifi_list).codes + 1
+        sim_list = ['Dual','Single']
+        self.df['sim_ord'] = pd.Categorical(self.df.sim, ordered=True, categories=sim_list).codes + 1
 
     def calculate_nominal_features(self):
-        self.df['bluetooth_bin']=np.where(self.df['bluetooth'] =='Yes',1,0)
-        self.df['sim_dual_bin'] = np.where(self.df['sim'] =='Dual',1,0)
-        self.df['screen_bin'] = np.where(self.df['screen'] == 'Touch',1,0)
+        bluetooth_list = ['No', 'Yes']
+        self.df['bluetooth_bin'] = pd.Categorical(self.df.bluetooth, ordered=True, categories=bluetooth_list).codes
+        screen_list = ['LCD', 'Touch']
+        self.df['screen_bin'] = pd.Categorical(self.df.screen, ordered=True, categories=screen_list).codes
 
     def show_heatmap(self):
         corr_new = self.df.corr()
         plt.figure(figsize = (8,6))
         sns.heatmap(corr_new)
-        plt.show()
+        #plt.show()
 
 
 if __name__ == '__main__':
