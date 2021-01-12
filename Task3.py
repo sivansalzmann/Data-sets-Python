@@ -8,10 +8,12 @@ class Task3(MobilePriceGeneral):
         self.df['speed_ord'] = pd.Categorical(self.df.speed, ordered=True, categories=speed_list).codes + 1
         wifi_list = ['none', 'n', 'g', 'b', 'a']
         self.df['wifi_ord'] = pd.Categorical(self.df.wifi, ordered=True, categories=wifi_list).codes + 1
-        sim_list = ['Dual','Single']
-        self.df['sim_ord'] = pd.Categorical(self.df.sim, ordered=True, categories=sim_list).codes + 1
+        gen_list = ['2', '3', '4']
+        self.df['gen_ord'] = pd.Categorical(self.df.gen, ordered=True, categories=gen_list).codes + 1
 
     def calculate_nominal_features(self):
+        sim_list = ['Dual','Single']
+        self.df['sim_bin'] = pd.Categorical(self.df.sim, ordered=True, categories=sim_list).codes
         bluetooth_list = ['No', 'Yes']
         self.df['bluetooth_bin'] = pd.Categorical(self.df.bluetooth, ordered=True, categories=bluetooth_list).codes
         screen_list = ['LCD', 'Touch']
@@ -21,7 +23,7 @@ class Task3(MobilePriceGeneral):
         corr_new = self.df.corr()
         plt.figure(figsize = (8,6))
         sns.heatmap(corr_new)
-        #plt.show()
+        plt.show()
 
 
 if __name__ == '__main__':

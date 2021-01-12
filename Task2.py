@@ -11,7 +11,7 @@ class Task2(MobilePriceGeneral):
         ax.set_title("Correlation Heatmap")
         cmap = sns.diverging_palette(200, 10, as_cmap=True)
         sns.heatmap(corr, mask=mask, cmap=cmap, center=0, square=True, linewidths=.5)
-        # plt.show()
+        plt.show()
 
     def show_correlated_with_price(self): #add describe
             print(f"Features correlated with the device price shown in the matrix : ram, gen, battery_power ")
