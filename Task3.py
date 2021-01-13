@@ -1,5 +1,6 @@
-from MobilePriceGeneral import *
-
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
 
 def calculate_ordinal_features(df):
     core_list = ['single', 'dual', 'triple', 'quad', 'penta', 'hexa', 'hepta', 'octa']

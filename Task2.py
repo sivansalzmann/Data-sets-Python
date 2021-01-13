@@ -1,5 +1,7 @@
-from MobilePriceGeneral import *
-
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
 
 def show_relation_by_price(df, x, y='price'):
     sns.jointplot(x=x, y=y, data=df)

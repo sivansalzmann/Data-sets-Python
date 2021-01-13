@@ -1,5 +1,5 @@
-from MobilePriceGeneral import *
-
+import pandas as pd
+import matplotlib.pyplot as plt
 
 def transform(df):
     df.price = df.price.astype(int)  # lots of decimals

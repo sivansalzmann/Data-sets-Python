@@ -1,4 +1,6 @@
-from MobilePriceGeneral import *
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
 
 def by4grid(df):
     g = sns.PairGrid(df, vars=['px_height', 'px_width', 'ram', 'price'], hue='gen', palette='RdBu_r')
