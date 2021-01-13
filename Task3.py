@@ -1,6 +1,7 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
+import numpy as np
 
 def calculate_ordinal_features(df):
     core_list = ['single', 'dual', 'triple', 'quad', 'penta', 'hexa', 'hepta', 'octa']
@@ -9,8 +10,8 @@ def calculate_ordinal_features(df):
     df['speed_ord'] = pd.Categorical(df.speed, ordered=True, categories=speed_list).codes + 1
     wifi_list = ['none', 'n', 'g', 'b', 'a']
     df['wifi_ord'] = pd.Categorical(df.wifi, ordered=True, categories=wifi_list).codes + 1
-    gen_list = ['2', '3', '4']
-    df['gen_ord'] = pd.Categorical(df.gen, ordered=True, categories=gen_list).codes + 1
+    # gen_list = ['2', '3', '4']
+    # df['gen_ord'] = pd.Categorical(df.gen, ordered=True, categories=gen_list).codes + 1
 
 def calculate_nominal_features(df):
     sim_list = ['Dual','Single']
@@ -21,10 +22,12 @@ def calculate_nominal_features(df):
     df['screen_bin'] = pd.Categorical(df.screen, ordered=True, categories=screen_list).codes
 
 def show_heatmap(df):
-    corr_new = df.corr()
-    plt.figure(figsize = (8,6))
-    sns.heatmap(corr_new)
-    # plt.show()
+    corrmat = df.corr()
+    top_corr_features = corrmat.index
+    plt.figure(figsize=(20, 10))
+    map = sns.heatmap(df[top_corr_features].corr(), annot=True, cmap="OrRd_r")
+    plt.show()
+
 
 
 if __name__ == '__main__':

@@ -7,10 +7,8 @@ def transform(df):
 def clean_data(df):
     df['f_camera'] = df['f_camera'].fillna(0)
     df['camera'] = df['camera'].fillna(0)
-
     # probably noise, there's no phone with < 100 px
     f = df.loc[(df.px_height > 100)]
-
     # probably noise, there's no phone with < 2cm screen width
     df = df.loc[(df.sc_w > 2)]
 
@@ -21,18 +19,14 @@ def pre_process(df):
 def addCoulnms(df):
     #1.3
     df['resolution'] = df.px_height * df.px_width
-
     #1.4
     df['DPI_W'] = (df['px_width']/df['sc_w']) / 2.54
-
     #1.5
     df['call_ratio'] = df['battery_power'] / df['talk_time']
-
     #1.6
     df['memory'] /= 1024
 
 def describe(df):
-    # self.df.describe().to_csv("Task_1.7_describe.csv")
     pd.set_option('max_columns',None)
     print(f"describe():\n{df.describe()}")
 

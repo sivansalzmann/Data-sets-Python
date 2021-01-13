@@ -1,5 +1,4 @@
 import pandas as pd
-import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 
@@ -8,16 +7,11 @@ def show_relation_by_price(df, x, y='price'):
     # plt.show()
 
 def show_correlation_heatmap(df):
-    corr = df.corr()
-    mask = np.triu(np.ones_like(corr, dtype=bool))
-    f, ax = plt.subplots(figsize=(8, 6))
-    ax.set_title("Correlation Heatmap")
-    cmap = sns.diverging_palette(200, 10, as_cmap=True)
-    sns.heatmap(corr, mask=mask, cmap=cmap, center=0, square=True, linewidths=.5)
-    # plt.show()
-
-def show_correlated_with_price(df):
-        print(f"Features correlated with the device price shown in the matrix : ram, gen, battery_power ")
+    corrmat = df.corr()
+    top_corr_features = corrmat.index
+    plt.figure(figsize=(15, 10))
+    map = sns.heatmap(df[top_corr_features].corr(), annot=True, cmap="OrRd_r")
+    plt.show()
 
 def show_correlated_with_price_catagories(df):
     features = {'bluetooth': [0,1], 'cores': [6,0,7,5,4,2,1,3], 'speed': [1,2,0], 'sim':[0,1], 'wifi':[4,1,0,2,3]}
@@ -39,8 +33,6 @@ if __name__ == '__main__':
     df = pd.read_csv('Output\mobile_price_1_1.csv',index_col="id")
     #2.1
     show_correlation_heatmap(df)
-    #2.2
-    show_correlated_with_price(df)
     #2.3
     show_correlated_with_price_catagories(df)
     #2.4
