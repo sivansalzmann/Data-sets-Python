@@ -1,39 +1,56 @@
 from MobilePriceGeneral import *
 
-class Task1(MobilePriceGeneral):
 
-    def addCoulnms(self):
-        #1.3
-        self.df['resolution'] = self.df.px_height * self.df.px_width
+def transform(df):
+    df.price = df.price.astype(int)  # lots of decimals
 
-        #1.4
-        self.df['DPI_W'] = (self.df['px_width']/self.df['sc_w']) / 2.54
+def clean_data(df):
+    df['f_camera'] = df['f_camera'].fillna(0)
+    df['camera'] = df['camera'].fillna(0)
 
-        #1.5
-        self.df['call_ratio'] = self.df['battery_power'] / self.df['talk_time']
+    # probably noise, there's no phone with < 100 px
+    f = df.loc[(df.px_height > 100)]
 
-        #1.6
-        self.df['memory'] /= 1024
+    # probably noise, there's no phone with < 2cm screen width
+    df = df.loc[(df.sc_w > 2)]
 
-    def describe(self):
-        # self.df.describe().to_csv("Task_1.7_describe.csv")
-        pd.set_option('max_columns',None)
-        print(f"describe():\n{self.df.describe()}")
+def pre_process(df):
+    clean_data(df)
+    transform(df)
 
-    def histMap(self):
-        self.df.hist(column='price')
-        plt.xlabel("Count")
-        plt.ylabel("Price")
-        #plt.show()
+def addCoulnms(df):
+    #1.3
+    df['resolution'] = df.px_height * df.px_width
+
+    #1.4
+    df['DPI_W'] = (df['px_width']/df['sc_w']) / 2.54
+
+    #1.5
+    df['call_ratio'] = df['battery_power'] / df['talk_time']
+
+    #1.6
+    df['memory'] /= 1024
+
+def describe(df):
+    # self.df.describe().to_csv("Task_1.7_describe.csv")
+    pd.set_option('max_columns',None)
+    print(f"describe():\n{df.describe()}")
+
+def histMap(df):
+    df.hist(column='price')
+    plt.xlabel("Count")
+    plt.ylabel("Price")
+    #plt.show()
 
 if __name__ == '__main__':
-    task1 = Task1()
+    df = pd.read_csv("Data\mobile_price_1.csv", index_col="id")
+    pre_process(df)
     #1.3 - 1.6
-    task1.addCoulnms()
+    addCoulnms(df)
     #1.7
-    task1.describe()
+    describe(df)
     #1.8
-    task1.histMap()
+    histMap(df)
 
-    # task1.df.to_csv("Task_1.3_1.4_1.5_1.6.csv")
+    df.to_csv("mobile_price_1_1.csv")
 
