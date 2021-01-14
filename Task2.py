@@ -1,16 +1,20 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
+import numpy as np
+
 
 def show_relation_by_price(df, x, y='price'):
     sns.jointplot(x=x, y=y, data=df)
     # plt.show()
 
 def show_correlation_heatmap(df):
-    corrmat = df.corr()
-    top_corr_features = corrmat.index
-    plt.figure(figsize=(15, 10))
-    map = sns.heatmap(df[top_corr_features].corr(), annot=True, cmap="OrRd_r")
+    corr = df.corr()
+    mask = np.triu(np.ones_like(corr, dtype=bool))
+    f, ax = plt.subplots(figsize=(20, 10))
+    ax.set_title("Correlation Heatmap")
+    cmap = sns.diverging_palette(200, 10, as_cmap=True)
+    sns.heatmap(corr, annot=True,mask=mask, cmap=cmap, center=0, square=True, linewidths=.5)
     plt.show()
 
 def show_correlated_with_price_catagories(df):

@@ -1,12 +1,13 @@
+import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 
 def by4grid(df):
-    g = sns.PairGrid(df, vars=['price', 'ram', 'DPI_W', 'battery_power'], hue='gen', palette='RdBu_r')
+    g = sns.PairGrid(df, vars=['price', 'camera', 'DPI_W', 'battery_power'], hue='gen', palette='RdBu_r')
     g.map(plt.scatter, alpha=0.8)
     g.add_legend()
-    #plt.show()
+    # plt.show()
 
 def fourD(df):
     coreNumb = [0, 'single', 'dual', 'triple', 'quad', 'penta', 'hexa', 'hepta', 'octa']
@@ -19,23 +20,39 @@ def fourD(df):
     for ar in [10, 20, 30, 40, 50, 60, 70, 80]:
         plt.scatter([], [], c='k', alpha=0.3, s=ar, label=core_names[ar])
     plt.legend(scatterpoints=1, frameon=False, labelspacing=1)
-    #plt.show()
+    # plt.show()
 
-def pricesComp(df,df2):
-    df2['price'] = df['price']
-    df2['ram'] = df['ram']
-    df2['gen'] = df['gen']
-    df2['battery_power'] = df['battery_power']
-    sns.heatmap(df2[df2.corr().index].corr(), annot=True, cmap='YlGnBu')
-    #plt.show()
+def show_correlation_heatmap(df):
+    corr = df.corr()
+    mask = np.triu(np.ones_like(corr, dtype=bool))
+    f, ax = plt.subplots(figsize=(20, 10))
+    ax.set_title("Correlation Heatmap")
+    cmap = sns.diverging_palette(200, 10, as_cmap=True)
+    sns.heatmap(corr, annot=True,mask=mask, cmap=cmap)
+    # plt.show()
+
+def pricesComp(df1,df2):
+    df3 = pd.concat([df1,df2],axis=1)
+    df3["price_diff"]=df3.price_2/df3.price
+    plt.scatter(df3.camera,df3.price_diff,vmin=0)
+    plt.xlabel("Entreies")
+    plt.ylabel("price relation")
+    plt.colorbar(label='camera')
+    # plt.show()
+
     x = df2['price_2']
-    y = df2['price']
-    c = df2['ram']
+    y = df1['price']
+    c = df1['camera']
     plt.scatter(x, y, c=c, alpha=0.3, cmap='YlGnBu')
-    plt.colorbar(label='ram')
+    plt.colorbar(label='camera')
     plt.xlabel('price_2')
     plt.ylabel('price')
-    plt.show()
+    # plt.show()
+
+    df1 = pd.merge(df1, df2, on='id', how='left')
+    df1['price_rate'] = np.round(df1['price_2'] / df1['price'], 2)
+    show_correlation_heatmap(df1)
+    sns.jointplot(x='camera', y='price_rate', data=df1)
 
 if __name__ == '__main__':
     df = pd.read_csv('Output\mobile_prices_1_converted.csv',index_col="id")

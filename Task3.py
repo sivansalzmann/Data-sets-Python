@@ -22,13 +22,13 @@ def calculate_nominal_features(df):
     df['screen_bin'] = pd.Categorical(df.screen, ordered=True, categories=screen_list).codes
 
 def show_heatmap(df):
-    corrmat = df.corr()
-    top_corr_features = corrmat.index
-    plt.figure(figsize=(20, 10))
-    map = sns.heatmap(df[top_corr_features].corr(), annot=True, cmap="OrRd_r")
-    plt.show()
-
-
+    corr = df.corr()
+    mask = np.triu(np.ones_like(corr, dtype=bool))
+    f, ax = plt.subplots(figsize=(20, 10))
+    ax.set_title("Correlation Heatmap Task 3.3")
+    cmap = sns.diverging_palette(200, 10, as_cmap=True)
+    sns.heatmap(corr, annot=True,mask=mask, cmap=cmap)
+    # plt.show()
 
 if __name__ == '__main__':
     df = pd.read_csv('Output\mobile_price_1_1.csv',index_col="id")
@@ -39,4 +39,4 @@ if __name__ == '__main__':
     #3.3
     show_heatmap(df)
     #3.4
-    # df.to_csv('mobile_prices_1_converted.csv')
+    df.to_csv('mobile_prices_1_converted.csv')
